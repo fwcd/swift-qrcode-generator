@@ -24,7 +24,7 @@
 
 import Foundation
 
-struct QRCode {
+public struct QRCode {
     // Scalar parameters:
 
     /// The version number of this QR Code, which is between 1 and 40 (inclusive).
