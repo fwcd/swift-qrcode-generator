@@ -23,25 +23,25 @@
 
 /// The error correction level in a QR Code symbol.
 public enum QRCodeECC: UInt {
-	/// The QR Code can tolerate about  7% erroneous codewords.
-	case low = 0
-	/// The QR Code can tolerate about 15% erroneous codewords.
-	case medium = 1
-	/// The QR Code can tolerate about 25% erroneous codewords.
-	case quartile = 2
-	/// The QR Code can tolerate about 30% erroneous codewords.
-	case high = 3
-	
-	/// Returns an unsigned 2-bit integer (in the range 0 to 3).
-	var ordinal: UInt { rawValue }
+    /// The QR Code can tolerate about  7% erroneous codewords.
+    case low = 0
+    /// The QR Code can tolerate about 15% erroneous codewords.
+    case medium = 1
+    /// The QR Code can tolerate about 25% erroneous codewords.
+    case quartile = 2
+    /// The QR Code can tolerate about 30% erroneous codewords.
+    case high = 3
+    
+    /// Returns an unsigned 2-bit integer (in the range 0 to 3).
+    var ordinal: UInt { rawValue }
 
-	/// Returns an unsigned 2-bit integer (in the range 0 to 3).
-	var formatBits: UInt32 {
-		switch self {
-			case .low: return 1
-			case .medium: return 0
-			case .quartile: return 3
-			case .high: return 2
-		}
-	}
+    /// Returns an unsigned 2-bit integer (in the range 0 to 3).
+    var formatBits: UInt32 {
+        switch self {
+            case .low: return 1
+            case .medium: return 0
+            case .quartile: return 3
+            case .high: return 2
+        }
+    }
 }

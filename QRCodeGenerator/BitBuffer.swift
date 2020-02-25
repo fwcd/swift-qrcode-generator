@@ -23,18 +23,18 @@
 
 /// An appendable sequence of bits (0s and 1s).
 public struct BitBuffer {
-	public var bits: [Bool]
-	public var count: UInt { UInt(bits.count) }
-	
-	public init(_ bits: [Bool] = []) {
-		self.bits = bits
-	}
+    public var bits: [Bool]
+    public var count: UInt { UInt(bits.count) }
+    
+    public init(_ bits: [Bool] = []) {
+        self.bits = bits
+    }
 
-	/// Appends the given number of low-order bits of the given value to this buffer.
-	/// 
-	/// Requires len &#x2264; 31 and val &lt; 2<sup>len</sup>.
-	public mutating func appendBits(_ value: UInt32, _ length: Int) {
-		assert(length <= 31 && (value >> length) == 0, "Value out of range")
-		bits += (0..<length).reversed().map { getBit(value, Int32($0)) }
-	}
+    /// Appends the given number of low-order bits of the given value to this buffer.
+    /// 
+    /// Requires len &#x2264; 31 and val &lt; 2<sup>len</sup>.
+    public mutating func appendBits(_ value: UInt32, _ length: Int) {
+        assert(length <= 31 && (value >> length) == 0, "Value out of range")
+        bits += (0..<length).reversed().map { getBit(value, Int32($0)) }
+    }
 }
