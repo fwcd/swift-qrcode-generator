@@ -83,21 +83,6 @@ public struct QRCode {
     
     /// Returns a QR Code representing the given segments at the given error correction level.
     /// 
-    /// The smallest possible QR Code version is automatically chosen for the output. The ECC level
-    /// of the result may be higher than the ecl argument if it can be done without increasing the version.
-    /// 
-    /// This function allows the user to create a custom sequence of segments that switches
-    /// between modes (such as alphanumeric and byte) to encode text in less space.
-    /// This is a mid-level API; the high-level API is `encode(text:)` and `encode(binary:)`.
-    /// 
-    /// Returns a `QrCode` if successful, or throws if the
-    /// data is too long to fit in any version at the given ECC level.
-    public static func encode(segments: [QRSegment], ecl: QRCodeECC) throws -> Self {
-        try QRCode.advancedEncode(segments: segments, ecl: ecl, minVersion: .min, maxVersion: .max, boostECL: true)
-    }
-    
-    /// Returns a QR Code representing the given segments with the given encoding parameters.
-    /// 
     /// The smallest possible QR Code version within the given range is automatically
     /// chosen for the output. Iff boostecl is `true`, then the ECC level of the result
     /// may be higher than the ecl argument if it can be done without increasing the
@@ -110,7 +95,7 @@ public struct QRCode {
     /// 
     /// Returns a `QrCode` if successful, or throws if the data is too
     /// long to fit in any version in the given range at the given ECC level.
-    public static func advancedEncode(segments: [QRSegment], ecl: QRCodeECC, minVersion: QRCodeVersion, maxVersion: QRCodeVersion, mask: QRCodeMask? = nil, boostECL: Bool) throws -> Self {
+    public static func encode(segments: [QRSegment], ecl: QRCodeECC, minVersion: QRCodeVersion = .min, maxVersion: QRCodeVersion = .max, mask: QRCodeMask? = nil, boostECL: Bool = true) throws -> Self {
         assert(minVersion <= maxVersion, "Invalid value")
         var mutECL = ecl
         
