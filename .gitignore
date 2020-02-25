@@ -1,5 +1,8 @@
 .DS_Store
 .build
+.vscode
+.idea
 Packages
 *.xcodeproj
+*.swp
 xcuserdata/
