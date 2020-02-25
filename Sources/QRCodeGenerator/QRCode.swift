@@ -43,7 +43,7 @@ public struct QRCode {
     // Grids of modules/pixels, with dimensions of size*size:
     
     /// The modules of this QR Code (false = white, true = black).
-    /// Immutable after constructor finishes. Accessed through get_module().
+    /// Immutable after constructor finishes. Accessed through subscripts.
     private var modules: [Bool]
     
     /// Indicates function modules that are not subjected to masking. Discarded when constructor finishes.
@@ -58,7 +58,7 @@ public struct QRCode {
     /// QR Code version is automatically chosen for the output. The ECC level of the result may be higher than
     /// the ecl argument if it can be done without increasing the version.
     /// 
-    /// Returns a wrapped `QrCode` if successful, or `Err` if the
+    /// Returns a `QrCode` if successful, or throws if the
     /// data is too long to fit in any version at the given ECC level.
     public static func encode(text: String, ecl: QRCodeECC) throws -> Self {
         let chrs = Array(text)
@@ -72,7 +72,7 @@ public struct QRCode {
     /// bytes allowed is 2953. The smallest possible QR Code version is automatically chosen for the output.
     /// The ECC level of the result may be higher than the ecl argument if it can be done without increasing the version.
     /// 
-    /// Returns a wrapped `QrCode` if successful, or `Err` if the
+    /// Returns a `QrCode` if successful, or throws if the
     /// data is too long to fit in any version at the given ECC level.
     public static func encode(binary data: [UInt8], ecl: QRCodeECC) throws -> Self {
         let segs = [QRSegment.makeBytes(data)]
@@ -88,12 +88,12 @@ public struct QRCode {
     /// 
     /// This function allows the user to create a custom sequence of segments that switches
     /// between modes (such as alphanumeric and byte) to encode text in less space.
-    /// This is a mid-level API; the high-level API is `encode_text()` and `encode_binary()`.
+    /// This is a mid-level API; the high-level API is `encode(text:)` and `encode(binary:)`.
     /// 
-    /// Returns a wrapped `QrCode` if successful, or `Err` if the
+    /// Returns a `QrCode` if successful, or throws if the
     /// data is too long to fit in any version at the given ECC level.
     public static func encode(segments: [QRSegment], ecl: QRCodeECC) throws -> Self {
-        try QRCode.advancedEncode(segments: segments, ecl: ecl, minVersion: qrCodeMinVersion, maxVersion: qrCodeMaxVersion, boostECL: true)
+        try QRCode.advancedEncode(segments: segments, ecl: ecl, minVersion: .min, maxVersion: .max, boostECL: true)
     }
     
     /// Returns a QR Code representing the given segments with the given encoding parameters.
@@ -106,9 +106,9 @@ public struct QRCode {
     /// 
     /// This function allows the user to create a custom sequence of segments that switches
     /// between modes (such as alphanumeric and byte) to encode text in less space.
-    /// This is a mid-level API; the high-level API is `encode_text()` and `encode_binary()`.
+    /// This is a mid-level API; the high-level API is `encode(text:)` and `encode(binary:)`.
     /// 
-    /// Returns a wrapped `QrCode` if successful, or `Err` if the data is too
+    /// Returns a `QrCode` if successful, or throws if the data is too
     /// long to fit in any version in the given range at the given ECC level.
     public static func advancedEncode(segments: [QRSegment], ecl: QRCodeECC, minVersion: QRCodeVersion, maxVersion: QRCodeVersion, mask: QRCodeMask? = nil, boostECL: Bool) throws -> Self {
         assert(minVersion <= maxVersion, "Invalid value")
@@ -191,7 +191,7 @@ public struct QRCode {
     /// error correction level, data codeword bytes, and mask number.
     /// 
     /// This is a low-level API that most users should not use directly.
-    /// A mid-level API is the `encode_segments()` function.
+    /// A mid-level API is the `encodeSegments()` function.
     public static func encodeCodewords(version: QRCodeVersion, ecl: QRCodeECC, dataCodeWords: [UInt8], mask: QRCodeMask? = nil) -> Self {
         var mutMask = mask
 

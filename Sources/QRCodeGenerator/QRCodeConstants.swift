@@ -22,12 +22,6 @@
  *   Software.
  */
 
-/// The minimum version number supported in the QR Code Model 2 standard.
-public let qrCodeMinVersion = QRCodeVersion(1)
-
-/// The maximum version number supported in the QR Code Model 2 standard.
-public let qrCodeMaxVersion = QRCodeVersion(40)
-
 // For use in getPenaltyScore(), when evaluating which mask is best.
 public let penaltyN1: Int = 3
 public let penaltyN2: Int = 3

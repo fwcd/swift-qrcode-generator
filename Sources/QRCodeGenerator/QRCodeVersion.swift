@@ -22,25 +22,21 @@
  *   Software.
  */
 
-/// An appendable sequence of bits (0s and 1s).
-public struct BitBuffer {
-    public var bits: [Bool]
-    public var count: UInt { UInt(bits.count) }
+/// A number between 1 and 40 (inclusive).
+public struct QRCodeVersion: Hashable, Comparable {
+    /// The minimum version number supported in the QR Code Model 2 standard.
+    public static let min = QRCodeVersion(1)
+    /// The maximum version number supported in the QR Code Model 2 standard.
+    public static let max = QRCodeVersion(40)
+
+    public let value: UInt8
     
-    public init(_ bits: [Bool] = []) {
-        self.bits = bits
+    public init(_ value: UInt8) {
+        assert(1 <= value && value <= 40, "Version number out of range")
+        self.value = value
     }
-
-    /// Appends the given number of low-order bits of the given value to this buffer.
-    /// 
-    /// Requires len &#x2264; 31 and val &lt; 2<sup>len</sup>.
-    public mutating func appendBits(_ value: UInt32, _ length: Int) {
-        assert(length <= 31 && (value >> length) == 0, "Value out of range")
-        bits += (0..<length).reversed().map { getBit(value, Int32($0)) }
+    
+    public static func <(lhs: QRCodeVersion, rhs: QRCodeVersion) -> Bool {
+        lhs.value < rhs.value
     }
-}
-
-/// Returns true iff the i'th bit of x is set to 1.
-func getBit(_ x: UInt32, _ i: Int32) -> Bool {
-    (x >> i) & 1 != 0
 }

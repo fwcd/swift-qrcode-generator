@@ -22,20 +22,6 @@
  *   Software.
  */
 
-/// A number between 1 and 40 (inclusive).
-public struct QRCodeVersion: Hashable, Comparable {
-    public let value: UInt8
-    
-    public init(_ value: UInt8) {
-        assert(1 <= value && value <= 40, "Version number out of range")
-        self.value = value
-    }
-    
-    public static func <(lhs: QRCodeVersion, rhs: QRCodeVersion) -> Bool {
-        lhs.value < rhs.value
-    }
-}
-
 /// A number between 0 and 7 (inclusive).
 public struct QRCodeMask: Hashable {
     public let value: UInt8
@@ -44,25 +30,4 @@ public struct QRCodeMask: Hashable {
         assert(value <= 7, "Mask value out of range")
         self.value = value
     }
-}
-
-public enum QRCodeError: Error {
-    /// The error type when the supplied data does not fit any QR Code version.
-    ///
-    /// Ways to handle this exception include:
-    /// 
-    /// - Decrease the error correction level if it was greater than `QRCodeECC.low`.
-    /// - If the `encodeSegmentsAdvanced()` function was called, then increase the maxversion
-    ///   argument if it was less than `qrCodeMaxVersion`. (This advice does not apply to the
-    ///   other factory functions because they search all versions up to `qrCodeMaxVersion`.)
-    /// - Split the text data into better or optimal segments in order to reduce the number of bits required.
-    /// - Change the text or binary data to be shorter.
-    /// - Change the text to fit the character set of a particular segment mode (e.g. alphanumeric).
-    /// - Propagate the error upward to the caller/user.
-    case dataTooLong(String)
-}
-
-/// Returns true iff the i'th bit of x is set to 1.
-func getBit(_ x: UInt32, _ i: Int32) -> Bool {
-    (x >> i) & 1 != 0
 }

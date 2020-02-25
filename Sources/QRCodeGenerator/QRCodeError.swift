@@ -22,25 +22,18 @@
  *   Software.
  */
 
-/// An appendable sequence of bits (0s and 1s).
-public struct BitBuffer {
-    public var bits: [Bool]
-    public var count: UInt { UInt(bits.count) }
-    
-    public init(_ bits: [Bool] = []) {
-        self.bits = bits
-    }
-
-    /// Appends the given number of low-order bits of the given value to this buffer.
+public enum QRCodeError: Error {
+    /// The error type when the supplied data does not fit any QR Code version.
+    ///
+    /// Ways to handle this exception include:
     /// 
-    /// Requires len &#x2264; 31 and val &lt; 2<sup>len</sup>.
-    public mutating func appendBits(_ value: UInt32, _ length: Int) {
-        assert(length <= 31 && (value >> length) == 0, "Value out of range")
-        bits += (0..<length).reversed().map { getBit(value, Int32($0)) }
-    }
-}
-
-/// Returns true iff the i'th bit of x is set to 1.
-func getBit(_ x: UInt32, _ i: Int32) -> Bool {
-    (x >> i) & 1 != 0
+    /// - Decrease the error correction level if it was greater than `QRCodeECC.low`.
+    /// - If the `encodeSegmentsAdvanced()` function was called, then increase the maxversion
+    ///   argument if it was less than `qrCodeMaxVersion`. (This advice does not apply to the
+    ///   other factory functions because they search all versions up to `qrCodeMaxVersion`.)
+    /// - Split the text data into better or optimal segments in order to reduce the number of bits required.
+    /// - Change the text or binary data to be shorter.
+    /// - Change the text to fit the character set of a particular segment mode (e.g. alphanumeric).
+    /// - Propagate the error upward to the caller/user.
+    case dataTooLong(String)
 }
