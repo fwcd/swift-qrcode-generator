@@ -24,6 +24,9 @@
 
 import Foundation
 
+/// A QR code represented as a matrix of black/white modules.
+/// Contains factory methods for encoding QR codes from text
+/// or binary.
 public struct QRCode {
     // Scalar parameters:
 
