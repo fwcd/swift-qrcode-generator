@@ -1,20 +1,20 @@
 name: Linux
+
 on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        swift: ['5.1']
-    
+        swift: ['5.4']
+
     steps:
     - uses: actions/checkout@v2
-    - name: Install Swiftenv
-      run: git clone --depth 1 https://github.com/kylef/swiftenv.git ~/.swiftenv
-    - name: Install Swift
-      run: ~/.swiftenv/bin/swiftenv install ${{ matrix.swift }}
+    - uses: fwal/setup-swift@v1
+      with:
+        swift-version: ${{ matrix.swift }}
     - name: Build
-      run: ~/.swiftenv/shims/swift build
+      run: swift build
     - name: Test
-      run: ~/.swiftenv/shims/swift test
+      run: swift test
