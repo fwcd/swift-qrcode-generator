@@ -10,7 +10,7 @@ The project is mostly a direct translation of [Nayuki's](https://github.com/nayu
 To use in your project, add the following dependency to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/fwcd/swift-qrcode-generator.git", from: "0.0.1")
+.package(url: "https://github.com/fwcd/swift-qrcode-generator.git", from: "1.0.0")
 ```
 
 ## Example
