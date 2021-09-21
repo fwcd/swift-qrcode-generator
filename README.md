@@ -21,7 +21,7 @@ Swift QR Code Generator is available through [CocoaPods](http://cocoapods.org). 
 it, simply add the following line to your Podfile:
 
 ```bash
-pod 'QRCodeGenerator'
+pod 'SwiftQRCodeGenerator'
 ```
 
 ## Example

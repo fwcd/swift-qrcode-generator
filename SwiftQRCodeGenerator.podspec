@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name                      = "QRCodeGenerator"
+  s.name                      = "SwiftQRCodeGenerator"
   s.version                   = ENV["LIB_VERSION"] || "1.0.0"
   s.summary                   = "QR code generator written in pure Swift"
   s.homepage                  = "https://github.com/fwcd/swift-qrcode-generator"
