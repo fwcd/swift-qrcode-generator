@@ -8,7 +8,7 @@ on:
       - "v*"
 
 jobs:
-  build:
+  deploy:
     runs-on: macOS-latest
 
     steps:
