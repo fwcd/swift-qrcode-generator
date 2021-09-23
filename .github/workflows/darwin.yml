@@ -12,3 +12,5 @@ jobs:
       run: swift build
     - name: Test SPM
       run: swift test
+    - name: Lint Podspec
+      run: pod lib lint --allow-warnings --use-libraries
