@@ -22,6 +22,5 @@ jobs:
         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
       run: |
         set -eo pipefail
-        export LIB_VERSION=${GITHUB_REF/refs\/tags\/v/}
-        pod lib lint --allow-warnings
+        pod spec lint --allow-warnings
         pod trunk push --allow-warnings
