@@ -1,7 +1,7 @@
 # Swift QR Code Generator
 
-[![Linux](https://github.com/fwcd/swift-qrcode-generator/workflows/Linux/badge.svg)](https://github.com/fwcd/swift-qrcode-generator/actions)
-[![Darwin](https://github.com/fwcd/swift-qrcode-generator/workflows/Darwin/badge.svg)](https://github.com/fwcd/swift-qrcode-generator/actions)
+[![Linux](https://github.com/fwcd/swift-qrcode-generator/actions/workflows/linux.yml/badge.svg)](https://github.com/fwcd/swift-qrcode-generator/actions/workflows/linux.yml)
+[![Darwin](https://github.com/fwcd/swift-qrcode-generator/actions/workflows/darwin.yml/badge.svg)](https://github.com/fwcd/swift-qrcode-generator/actions/workflows/darwin.yml)
 
 A QR code generator written in pure Swift with no dependencies.
 
