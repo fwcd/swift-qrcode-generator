@@ -22,6 +22,6 @@ jobs:
         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
       run: |
         set -eo pipefail
-        export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1` | gawk 'match($0, /v(.+)/, o) { print o[1] }')
+        export LIB_VERSION=${GITHUB_REF/refs\/tags\/v/}
         pod lib lint --allow-warnings
         pod trunk push --allow-warnings
