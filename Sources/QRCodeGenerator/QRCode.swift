@@ -246,7 +246,7 @@ public struct QRCode {
     /// this QR Code, with the given number of border modules.
     /// 
     /// The string always uses Unix newlines (\n), regardless of the platform.
-    public func toSVGString(border: Int, width: Int? = nil, background: String? = "#FFFFFF") -> String {
+    public func toSVGString(border: Int, width: Int? = nil, foreground: String = "#000000", background: String? = "#FFFFFF") -> String {
         assert(border >= 0, "Border must be non-negative")
         let dimension = size + (border * 2)
         let path = (0..<size).map { y in
@@ -263,7 +263,7 @@ public struct QRCode {
             <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 \(dimension) \(dimension)" stroke="none"\(widthAttribute)>
               \(backgroundRect)
-              <path d="\(path)" fill="#000000"/>
+              <path d="\(path)" fill="\(foreground)"/>
             </svg>
             """
     }
